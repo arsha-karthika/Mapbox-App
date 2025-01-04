@@ -1,6 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:mapboxapp/views/history_screen.dart';
+import 'package:mapboxapp/views/home_screen.dart';
+import 'package:mapboxapp/views/results_screen.dart';
 
-void main() {
+import 'model/search_history.dart';
+
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Hive
+  await Hive.initFlutter();
+  Hive.registerAdapter(SearchHistoryAdapter());
+  await Hive.openBox<SearchHistory>('search_history');
+
   runApp(const MyApp());
 }
 
@@ -10,14 +26,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
+    final String accessToken = const String.fromEnvironment("MAPBOX_ACCESS_TOKEN");
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    // Ensure the access token is passed correctly
+    assert(accessToken.isEmpty, "Mapbox Access Token is missing.");
+
+
+    return GetMaterialApp(
+      title: 'Route Finder',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => HomeScreen()),
+        GetPage(name: '/results', page: () => ResultsScreen()),
+        GetPage(name: '/history', page: () => HistoryScreen()),
+      ],
     );
   }
 }
@@ -52,10 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+
         child: Column(
-        
+
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
