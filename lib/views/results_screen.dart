@@ -8,7 +8,7 @@ class ResultsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Route Results')),
+      appBar: AppBar(title: const Text('Route Results')),
       body: Column(
         children: [
           Text('Route from ${controller.startLocation} to ${controller.endLocation}'),

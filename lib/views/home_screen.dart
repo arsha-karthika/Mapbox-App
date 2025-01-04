@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
     // final String accessToken = const String.fromEnvironment("MAPBOX_ACCESS_TOKEN");
 
     return Scaffold(
-      appBar: AppBar(title: Text('Route Finder')),
+      appBar: AppBar(title: const Text('Route Finder')),
       body: Column(
         children: [
 
@@ -25,12 +25,11 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              decoration: InputDecoration(labelText: 'End Location'),
+              decoration: const InputDecoration(labelText: 'End Location'),
               onChanged: (val) => controller.endLocation.value = val,
             ),
           ),
 
-          // Mapbox map widget
           Container(
             height: 300,
             child: Obx(() {
@@ -39,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                 onMapCreated: (MapboxMapController controller) {
 
                 },
-                initialCameraPosition: CameraPosition(
+                initialCameraPosition: const CameraPosition(
                   target: LatLng(37.7749, -122.4194), // Default to a location (e.g., San Francisco)
                   zoom: 12,
                 ),
@@ -47,14 +46,13 @@ class HomeScreen extends StatelessWidget {
             }),
           ),
 
-          // Buttons for navigation
           ElevatedButton(
             onPressed: () => Get.toNamed('/results'),
-            child: Text('Navigate'),
+            child: const Text('Navigate'),
           ),
           ElevatedButton(
             onPressed: () => Get.toNamed('/history'),
-            child: Text('Saved Searches'),
+            child: const Text('Saved Searches'),
           ),
         ],
       ),

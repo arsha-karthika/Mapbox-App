@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:hive/hive.dart';
-part 'search_history.g.dart'; // Add this line
+part 'search_history.g.dart';
 
 
 @HiveType(typeId: 0)
